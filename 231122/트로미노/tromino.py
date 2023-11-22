@@ -16,16 +16,16 @@ max_sum.append(max_val)
 max_val = 0
 for i in range(n-1):
     for j in range(m-1):
-        if max_val < arr[i+1][j]+arr[i+1][j]+arr[i+1][j+1]:
-            max_val = arr[i+1][j]+arr[i+1][j]+arr[i+1][j+1]
+        if max_val < arr[i][j+1]+arr[i+1][j]+arr[i+1][j+1]:
+            max_val = arr[i][j+1]+arr[i+1][j]+arr[i+1][j+1]
 max_sum.append(max_val)
 
 # ㅣ-자
 max_val = 0
 for i in range (n-1):
     for j in range (m-1):
-        if max_val < arr[i][j]+arr[i+1][j]+arr[i][j+1]:
-            max_val = arr[i][j]+arr[i+1][j]+arr[i][j+1]
+        if max_val < arr[i][j]+arr[i][j+1]+arr[i+1][j]:
+            max_val = arr[i][j]+arr[i][j+1]+arr[i+1][j]
 max_sum.append(max_val)
 
 # ㄱ자
