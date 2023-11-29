@@ -35,17 +35,21 @@ class DoublyLinkedList:
     def erase(self, node):
         next_node = node.next
 
-        if node == self.begin():           # 만약 head가 삭제되어야 한다면
-            temp = self.head          
-            temp.next.prev = None          # 새로 head가 될 노드의 prev값을 지워줍니다.
-            self.head = temp.next          # head값을 새로 갱신해주고
-            temp.next = None               # 이전 head의 next 값을 지워줍니다.
+        if node == self.begin():  # If the node is the head
+            temp = self.head
+            temp.next.prev = None
+            self.head = temp.next
+            temp.next = None
 
-        else:                              # head가 삭제되는 것이 아니라면
-            node.prev.next = node.next     # 바로 전 노드의 next값을 바꿔주고
-            node.next.prev = node.prev     # 바로 다음 노드의 prev값을 바꿔주고
-            node.prev = None               # 해당 노드의 prev 와 
-            node.next = None               # 해당 노드의 next 값을 모두 지워줍니다.
+        else:
+            if node.next is not None:  # Check if node.next is not None before accessing prev
+                node.next.prev = node.prev
+
+            if node.prev is not None:  # Check if node.prev is not None before accessing next
+                node.prev.next = node.next
+
+            node.prev = None
+            node.next = None
 
         return next_node
     
