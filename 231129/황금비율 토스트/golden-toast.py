@@ -35,21 +35,17 @@ class DoublyLinkedList:
     def erase(self, node):
         next_node = node.next
 
-        if node == self.begin():  # If the node is the head
-            temp = self.head
-            temp.next.prev = None
-            self.head = temp.next
-            temp.next = None
+        if node == self.begin():           # 만약 head가 삭제되어야 한다면
+            temp = self.head          
+            temp.next.prev = None          # 새로 head가 될 노드의 prev값을 지워줍니다.
+            self.head = temp.next          # head값을 새로 갱신해주고
+            temp.next = None               # 이전 head의 next 값을 지워줍니다.
 
-        else:
-            if node.next is not None:  # Check if node.next is not None before accessing prev
-                node.next.prev = node.prev
-
-            if node.prev is not None:  # Check if node.prev is not None before accessing next
-                node.prev.next = node.next
-
-            node.prev = None
-            node.next = None
+        else:                              # head가 삭제되는 것이 아니라면
+            node.prev.next = node.next     # 바로 전 노드의 next값을 바꿔주고
+            node.next.prev = node.prev     # 바로 다음 노드의 prev값을 바꿔주고
+            node.prev = None               # 해당 노드의 prev 와 
+            node.next = None               # 해당 노드의 next 값을 모두 지워줍니다.
 
         return next_node
     
@@ -74,27 +70,36 @@ class DoublyLinkedList:
         return self.tail
 
 
-n,m = map(int,input("").split(" "))
-str = input("")
+# 변수 선언 및 입력:
+n, m = tuple(map(int, input().split()))
+s = input()
 
+# 연결리스트 정의
 l = DoublyLinkedList()
-for i in range(n):
-    l.push_back(str[i])
-it = l.end()
-for i in range(m):
-    command = input("").split(" ")
-    if(command[0] == "L"):
-        if(it.prev != None):
-            it = it.prev
-    elif(command[0] == "R"):
-        if(it.next != None):
-            it = it.next
-    elif(command[0] == "D"):
-        it = l.erase(it)
-    else:
-        l.insert(it,command[1])
+for c in s:
+    l.push_back(c)
 
+# iterator 정의
+it = l.end()
+
+for _ in range(m):
+    command = input()
+    
+    if command.startswith("L"):
+        if it != l.begin():        # 빵들의 맨 앞이 아니라면
+            it = it.prev           # 앞으로 이동합니다.
+    elif command.startswith("R"):
+        if it != l.end():          # 빵들의 맨 뒤가 아니라면
+            it = it.next           # 뒤로 이동합니다.
+    elif command.startswith("D"):
+        if it != l.end():          # 빵들의 맨 뒤가 아니라면
+            it = l.erase(it)       # 바로 뒤에 있는 빵을 제거합니다.
+    else:
+        _, c = command.split()
+        l.insert(it, c)            # 가리키는 위치에 문자 c를 추가합니다.
+
+# 출력:
 it = l.begin()
-while it != l.end(): 
+while it != l.end():
     print(it.data, end="")
     it = it.next
