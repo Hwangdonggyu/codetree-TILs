@@ -6,7 +6,10 @@ def bubble_sort(arr):
     return arr
 
 n = int(input())
-arr = list(map(int,input("").split(" ")))
+input_str = input("").strip()  # 입력값 양 끝의 공백 제거
+if input_str:
+    arr = list(map(int, input_str.split(" ")))
+# arr = list(map(int,input("").split(" ")))
 arr = bubble_sort(arr)
 for i in range(n):
     print(arr[i],end=" ")
