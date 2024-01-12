@@ -24,7 +24,7 @@ def radixSort(n, nums):
 
 # 예시로 함수 호출
 n = int(input())
-nums = list(map(int, input().split(' ')))
+nums = list(map(int, input().split()))
 result = radixSort(n, nums)
 
 for i in range(n):
